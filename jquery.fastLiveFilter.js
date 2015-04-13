@@ -29,7 +29,7 @@ jQuery.fn.fastLiveFilter = function(list, options) {
 	
 	input.change(function() {
 		// var startTime = new Date().getTime();
-		var filter = input.val().toLowerCase();
+		var filter = input.val().toLowerCase().trim();
 		var li, innerText;
 		var numShown = 0;
 		for (var i = 0; i < len; i++) {
@@ -59,8 +59,8 @@ jQuery.fn.fastLiveFilter = function(list, options) {
 			input.val('').blur().change();
 		} else {
 			keyTimeout = setTimeout(function() {
-				if( input.val() === lastFilter ) return;
-				lastFilter = input.val();
+				if( input.val().trim() === lastFilter ) return;
+				lastFilter = input.val().trim();
 				input.change();
 			}, timeout);
 		}
