@@ -1,6 +1,8 @@
 /**
  * fastLiveFilter jQuery plugin 1.0.3
  * 
+ * @wilwade: Added Esc key feature. (2015-04-13)
+ * 
  * Copyright (c) 2011, Anthony Bush
  * License: <http://www.opensource.org/licenses/bsd-license.php>
  * Project Website: http://anthonybush.com/projects/jquery_fast_live_filter/
@@ -51,13 +53,17 @@ jQuery.fn.fastLiveFilter = function(list, options) {
 		// var endTime = new Date().getTime();
 		// console.log('Search for ' + filter + ' took: ' + (endTime - startTime) + ' (' + numShown + ' results)');
 		return false;
-	}).keydown(function() {
+	}).keydown(function(e) {
 		clearTimeout(keyTimeout);
-		keyTimeout = setTimeout(function() {
-			if( input.val() === lastFilter ) return;
-			lastFilter = input.val();
-			input.change();
-		}, timeout);
+		if( e.which === 27 ) { //Escape
+			input.val('').blur().change();
+		} else {
+			keyTimeout = setTimeout(function() {
+				if( input.val() === lastFilter ) return;
+				lastFilter = input.val();
+				input.change();
+			}, timeout);
+		}
 	});
 	return this; // maintain jQuery chainability
 }
